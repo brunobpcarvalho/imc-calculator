@@ -1,0 +1,14 @@
+{
+    "name": "imc_calculator_server",
+    "version": "1.0.0",
+    "description": "imc calculator",
+    "author": "Bruno",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js",
+      "dev": "nodemon server.js"
+    },
+    "dependencies": {
+      "express": "^4.16.1"
+    }
+  }

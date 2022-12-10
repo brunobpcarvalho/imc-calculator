@@ -1,0 +1,33 @@
+version: "3.5"
+
+services:
+    imc_calculator_server:
+        container_name: imc_calculator_server
+        build:
+            context: ../
+            dockerfile: .docker/node/Dockerfile
+        ports:
+            - "8080:8080"
+        volumes:
+            - ../:/usr/src/app
+        restart: always
+        env_file: .env
+        command: bash -c /usr/src/app/.docker/start.sh
+        tty: true
+
+    imc_calculator_database:
+        container_name: imc_calculator_database
+        build:
+            context: ../
+            dockerfile: .docker/postgres/Dockerfile
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./postgres/data:/var/lib/postgresql/data
+            - ./postgres/scripts:/etc/postgresql/scripts
+        environment:
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        restart: on-failure
+        tty: true
